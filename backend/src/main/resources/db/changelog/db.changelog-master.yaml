@@ -4,3 +4,52 @@ databaseChangeLog:
       author: willian
       changes:
         - comment: "Initial changelog - no actual changes yet"
+  - changeSet:
+      id: 2
+      author: willian.melo
+      preConditions:
+        - not:
+            tableExists:
+              tableName: cliente
+              schemaName: public
+      changes:
+        - createTable:
+            tableName: cliente
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    autoIncrement: true
+              - column:
+                  name: nome
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: telefone
+                  type: VARCHAR(20)
+              - column:
+                  name: cpf
+                  type: VARCHAR(14)
+              - column:
+                  name: cnpj
+                  type: VARCHAR(18)
+              - column:
+                  name: nomeDaEmpresa
+                  type: VARCHAR(255)
+              - column:
+                  name: tipoPlano
+                  type: VARCHAR(50)
+              - column:
+                  name: saldo
+                  type: DECIMAL(10,2)
+              - column:
+                  name: limite
+                  type: DECIMAL(10,2)
