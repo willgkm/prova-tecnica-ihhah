@@ -92,3 +92,38 @@ databaseChangeLog:
                     type: varchar(255)
                     constraints:
                       nullable: false
+  - changeSet:
+      id: 4
+      author: willian.melo
+      preConditions:
+        - not:
+            tableExists:
+              tableName: plano
+              schemaName: public
+      changes:
+        - createTable:
+            tableName: plano
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    autoIncrement: true
+              - column:
+                  name: nome
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: custo
+                  type: double
+                  constraints:
+                    nullable: false
+              - column:
+                  name: limite_consumo
+                  type: double
+                  constraints:
+                    nullable: false
+
