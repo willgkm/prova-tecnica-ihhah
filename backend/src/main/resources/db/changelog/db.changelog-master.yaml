@@ -3,7 +3,7 @@ databaseChangeLog:
       id: 1
       author: willian
       changes:
-        - comment: "Initial changelog - no actual changes yet"
+        - comment: Initial changelog - no actual changes yet
   - changeSet:
       id: 2
       author: willian.melo
@@ -53,3 +53,42 @@ databaseChangeLog:
               - column:
                   name: limite
                   type: DECIMAL(10,2)
+  - changeSet:
+      id: 3
+      author: willian.melo
+      preConditions:
+        - not:
+            tableExists:
+              tableName: mensagem
+              schemaName: public
+      changes:
+        - createTable:
+              tableName: mensagem
+              columns:
+                - column:
+                    name: id
+                    type: bigint
+                    constraints:
+                      primaryKey: true
+                      nullable: false
+                      autoIncrement: true
+                - column:
+                    name: numeroTelefone
+                    type: varchar(255)
+                    constraints:
+                      nullable: false
+                - column:
+                    name: isWhatsapp
+                    type: boolean
+                    constraints:
+                      nullable: false
+                - column:
+                    name: texto
+                    type: text
+                    constraints:
+                      nullable: false
+                - column:
+                    name: client
+                    type: varchar(255)
+                    constraints:
+                      nullable: false
