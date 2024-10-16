@@ -3,17 +3,17 @@ package prova.tecnica.domain;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import prova.tecnica.base.BaseEntity;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Plano {
+@EqualsAndHashCode(callSuper = false)
+public class Plano extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
     @Column(name = "nome")
     private String nome;

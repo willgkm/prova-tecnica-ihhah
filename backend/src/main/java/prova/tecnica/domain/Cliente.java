@@ -1,17 +1,17 @@
 package prova.tecnica.domain;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
 import jakarta.persistence.*;
 import lombok.*;
+import prova.tecnica.base.BaseEntity;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cliente {
+@EqualsAndHashCode(callSuper = false)
+public class Cliente extends BaseEntity {
 
-    @Id
-    @Column(name = "id")
-    public Long id;
     @Column(name = "nome")
     public String nome;
     //TODO: criar um email validator;
