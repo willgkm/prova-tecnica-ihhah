@@ -3,4 +3,147 @@ databaseChangeLog:
       id: 1
       author: willian
       changes:
-        - comment: "Initial changelog - no actual changes yet"
+        - comment: Initial changelog - no actual changes yet
+
+  - changeSet:
+      id: 2
+      author: willian.melo
+      preConditions:
+        - not:
+            tableExists:
+              tableName: cliente
+              schemaName: public
+      changes:
+        - createTable:
+            tableName: cliente
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    autoIncrement: true
+              - column:
+                  name: nome
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: telefone
+                  type: VARCHAR(20)
+              - column:
+                  name: cpf
+                  type: VARCHAR(14)
+              - column:
+                  name: cnpj
+                  type: VARCHAR(18)
+              - column:
+                  name: nome_da_empresa
+                  type: VARCHAR(255)
+              - column:
+                  name: saldo
+                  type: DECIMAL(10,2)
+              - column:
+                  name: limite
+                  type: DECIMAL(10,2)
+              - column:
+                  name: plano_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 3
+      author: willian.melo
+      preConditions:
+        - not:
+            tableExists:
+              tableName: mensagem
+              schemaName: public
+      changes:
+        - createTable:
+            tableName: mensagem
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    autoIncrement: true
+              - column:
+                  name: numero_telefone
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_whatsapp
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: texto
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: client_type
+                  type: varchar(255)
+
+  - changeSet:
+      id: 4
+      author: willian.melo
+      preConditions:
+        - not:
+            tableExists:
+              tableName: plano
+              schemaName: public
+      changes:
+        - createTable:
+            tableName: plano
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    autoIncrement: true
+              - column:
+                  name: nome
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: custo
+                  type: double
+                  constraints:
+                    nullable: false
+              - column:
+                  name: limite_consumo
+                  type: double
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 5
+      author: willian.melo
+      preConditions:
+        - tableExists:
+            tableName: cliente
+            schemaName: public
+        - tableExists:
+            tableName: plano
+            schemaName: public
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: cliente
+            baseColumnNames: plano_id
+            referencedTableName: plano
+            referencedColumnNames: id
+            constraintName: fk_cliente_plano
