@@ -1,21 +1,22 @@
 package prova.tecnica.domain;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import prova.tecnica.base.BaseEntity;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Mensagem {
+@EqualsAndHashCode(callSuper = false)
+public class Mensagem extends BaseEntity {
 
-    @Id
-    @Column(name = "id")
-    public Long id;
     @Column(name = "numero_telefone")
     public String numeroTelefone;
     @Column(name = "is_whatsapp")
