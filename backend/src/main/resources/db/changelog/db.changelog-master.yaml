@@ -1,0 +1,6 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: willian
+      changes:
+        - comment: "Initial changelog - no actual changes yet"
