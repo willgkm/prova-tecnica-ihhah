@@ -13,7 +13,6 @@ interface IhhahTableProperties {
 export default function  IhhahTable({ label, data, columns, formLink }: IhhahTableProperties) {
   
   const navigate = useNavigate();
-  
   return (
     <div>
       <Row justify="space-between" align="middle" style={{ padding: '0 1rem' }}>
@@ -30,6 +29,7 @@ export default function  IhhahTable({ label, data, columns, formLink }: IhhahTab
       <Row>
         <div style={{ height: '100%', width: '100%' }}>
             <AntTable dataSource={data} 
+            rowKey="uid"
             columns={columns} 
             pagination={{ position: [] }}
             locale={{ emptyText: <Empty description="Sem dados cadastrados"></Empty> }}
