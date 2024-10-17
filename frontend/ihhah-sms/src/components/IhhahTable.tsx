@@ -21,8 +21,11 @@ export default function  IhhahTable({ label, data, columns, formLink }: IhhahTab
           </Button>
         </Col>
       </Row>
+      
       <Row>
-        <AntTable dataSource={data} columns={columns} pagination={{ position: [] }} />
+        <div style={{ height: '100%', width: '100%' }}>
+            <AntTable dataSource={data} columns={columns} pagination={{ position: [] }} />
+        </div>
       </Row>
     </div>
   );
