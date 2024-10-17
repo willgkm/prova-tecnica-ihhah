@@ -14,11 +14,10 @@ import prova.tecnica.base.BaseEntity;
 @EqualsAndHashCode(callSuper = false)
 public class Plano extends BaseEntity {
 
-    private Long id;
     @Column(name = "nome")
     private String nome;
-    @Column(name = "custo")
-    private Double custo;
+    @Column(name = "consumo")
+    private Double consumo;
     @Column(name = "limite_consumo")
     private Double limiteConsumo;
 }

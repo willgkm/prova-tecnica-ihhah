@@ -29,7 +29,6 @@ public class BaseService<ENTITY extends BaseEntity,
     }
 
     public ENTITY create(ENTITY newEntity) {
-
         return repository.save(newEntity);
     }
 

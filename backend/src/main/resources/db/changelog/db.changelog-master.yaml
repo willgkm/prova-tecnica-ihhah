@@ -147,3 +147,84 @@ databaseChangeLog:
             referencedTableName: plano
             referencedColumnNames: id
             constraintName: fk_cliente_plano
+  - changeSet:
+      id: 6
+      author: willian.melo
+      preConditions:
+        - tableExists:
+            tableName: cliente
+            schemaName: public
+      changes:
+        - renameColumn:
+            tableName: cliente
+            oldColumnName: nome_da_empresa
+            newColumnName: nome_empresa
+            columnDataType: VARCHAR(100)
+        - dropColumn:
+            tableName: cliente
+            columnName: limite
+  - changeSet:
+      id: 7
+      author: willian.melo
+      preConditions:
+        - tableExists:
+            tableName: plano
+            schemaName: public
+      changes:
+        - renameColumn:
+            tableName: plano
+            oldColumnName: custo
+            newColumnName: consumo
+            columnDataType: double
+  - changeSet:
+      id: 8
+      author: willian.melo
+      preConditions:
+        - tableExists:
+            tableName: plano
+            schemaName: public
+      changes:
+        - dropColumn:
+            tableName: mensagem
+            columnName: client_type
+  - changeSet:
+      id: 9
+      author: willian.melo
+      preConditions:
+        - tableExists:
+            tableName: plano
+            schemaName: public
+      changes:
+        - insert:
+            tableName: plano
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: nome
+                  value: "Pré-pago"
+              - column:
+                  name: consumo
+                  value: 0
+              - column:
+                  name: limite_consumo
+                  value: 0
+
+        - insert:
+            tableName: plano
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: nome
+                  value: "Pós-pago"
+              - column:
+                  name: consumo
+                  value: 0
+              - column:
+                  name: limite_consumo
+                  value: 100
+
+

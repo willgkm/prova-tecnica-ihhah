@@ -23,7 +23,5 @@ public class Mensagem extends BaseEntity {
     public Boolean isWhatsApp;
     @Column(name = "texto")
     public String texto;
-    @Column(name = "client_type")
-    public String clientType;
 
 }
