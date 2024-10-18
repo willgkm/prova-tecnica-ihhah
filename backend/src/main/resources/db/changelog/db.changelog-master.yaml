@@ -239,15 +239,18 @@ databaseChangeLog:
             columnName: consumo
 
   - changeSet:
-      id: 10
+      id: 11
       author: willian.melo
       preConditions:
-        - tableExists:
-            tableName: cliente
-            schemaName: public
+        - not:
+          - columnExists:
+              tableName: cliente
+              columnName: consumo
       changes:
         - addColumn:
             tableName: cliente
-            columnName: consumo
-            columnType: double
+            columns:
+              - column:
+                  name: consumo
+                  type: double
 

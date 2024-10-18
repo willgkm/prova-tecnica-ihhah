@@ -1,10 +1,31 @@
 package prova.tecnica.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import prova.tecnica.AdicionarSaldoDTO;
 import prova.tecnica.base.BaseService;
 import prova.tecnica.domain.Cliente;
 import prova.tecnica.repository.ClienteRepository;
 
+import java.util.Objects;
+
 @Service
 public class ClienteService extends BaseService<Cliente, ClienteRepository> {
+
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    public Cliente adicionarSaldo(AdicionarSaldoDTO adicionarSaldoDTO) {
+        Cliente cliente = clienteRepository.findById(adicionarSaldoDTO.getClienteId()).get();
+        if(Objects.isNull(cliente.saldo)) {
+            cliente.setSaldo(0.0);
+        }
+        Double novoSaldo = cliente.getSaldo()  + adicionarSaldoDTO.getValor();
+
+        cliente.setSaldo(novoSaldo);
+        return clienteRepository.save(cliente);
+    }
+
+
 }
