@@ -253,4 +253,29 @@ databaseChangeLog:
               - column:
                   name: consumo
                   type: double
-
+  - changeSet:
+      id: 12
+      author: willian.melo
+      preConditions:
+        - tableExists:
+            tableName: plano
+            schemaName: public
+      changes:
+        - dropColumn:
+            tableName: plano
+            columnName: limite_consumo
+  - changeSet:
+      id: 13
+      author: willian.melo
+      preConditions:
+        - not:
+            - columnExists:
+                tableName: cliente
+                columnName: limite_consumo
+      changes:
+        - addColumn:
+            tableName: cliente
+            columns:
+              - column:
+                  name: limite_consumo
+                  type: double
