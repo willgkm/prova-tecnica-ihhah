@@ -2,20 +2,43 @@ import { useEffect, useState } from 'react';
 import { Button, Form, Input, Select } from 'antd';
 import { PlanoType } from '../../../models/PlanoType';
 import planoService from '../../../services/planoService';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import clienteService from '../../../services/clienteService';
+import { ClienteType } from '../../../models/ClienteType';
 
-const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-const digitsOnlyPattern = /^\d+$/;
-const phonePattern = /^\d{2} \d{5}-\d{4}$/; 
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const somenteDigitosRegex = /^\d+$/;
+const telefoneRegex = /^\d{2} \d{5}-\d{4}$/; 
 
 export default function ClienteFormPage() {
   const [form] = Form.useForm();
   const [planos, setPlanos] = useState<PlanoType[]>([]);
+  const [planoSelecionado, setPlanoSelecionado] = useState<PlanoType>();
+
+  const navigate = useNavigate(); 
   const { id } = useParams(); 
 
   useEffect(() => {
+
     fetchPlanos();
+    if (id) {
+      getCliente();
+    }
+
   }, []);
+
+  async function getCliente() {
+    try {
+      if (id) {
+        const data = await clienteService.getById(parseInt(id));
+        form.setFieldsValue(data);
+        setPlanoSelecionado(data.plano);
+        form.setFieldsValue({ plano: {id: data.plano!.id } }); 
+      }
+    } catch (error) {
+      console.error('Erro ao buscar clientes:', error);
+    }
+  }
 
   async function fetchPlanos() {
     try {
@@ -26,19 +49,36 @@ export default function ClienteFormPage() {
     }
   }
 
-  const submit = async (values: any) => {
-    const formattedValues = {
+  async function submit (values: any) {
+    const formularioFormatado = {
       ...values,
       id: id || null , 
-      plano: { id: values.plano.nome },
+      plano: planoSelecionado ,
     };
-    console.log('Form values:', formattedValues);
+
+    if ( id ) {
+      await edit(formularioFormatado)
+    } else {
+      await save(formularioFormatado)
+    }
+    navigate("/cliente");
+
   };
 
-  const handlePlanoChange = (value: number) => {
+  async function edit(values: ClienteType) {
+    await clienteService.update(parseInt(id!), values);
+    navigate("/cliente");
+  }
 
-    form.setFieldsValue({ plano: {id: value } }); 
+  async function save(values: ClienteType) {
+    await clienteService.save(values);
+    navigate("/cliente");
+  }
 
+  async function handlePlanoChange(value: number) {
+    form.setFieldsValue({ plano: {id: value } });
+    const planoSelecionado = planos.find((elem) => elem.id === value);
+    setPlanoSelecionado(planoSelecionado);
   };
 
   return (
@@ -59,7 +99,7 @@ export default function ClienteFormPage() {
         name="email" 
         rules={[
           { required: true, message: 'Por favor insira o email!' },
-          { pattern: emailPattern, message: 'Formato de email inválido!' }
+          { pattern: emailRegex, message: 'Formato de email inválido!' }
         ]}
       >
         <Input placeholder="email@dominio.com" />
@@ -69,7 +109,7 @@ export default function ClienteFormPage() {
         name="telefone" 
         rules={[
           { required: true, message: 'Por favor insira o telefone!' },
-          { pattern: phonePattern, message: 'Formato inválido! Use (99) 99999-9999' }
+          { pattern: telefoneRegex, message: 'Formato inválido! Use (99) 99999-9999' }
         ]}
       >
         <Input placeholder="(99) 99999-9999" />
@@ -79,7 +119,7 @@ export default function ClienteFormPage() {
         name="cpf" 
         rules={[
           { required: true, message: 'Por favor insira o CPF!' },
-          { pattern: digitsOnlyPattern, message: 'O CPF deve conter apenas dígitos!' }
+          { pattern: somenteDigitosRegex, message: 'O CPF deve conter apenas dígitos!' }
         ]}
       >
         <Input />
@@ -89,7 +129,7 @@ export default function ClienteFormPage() {
         name="cnpj" 
         rules={[
           { required: true, message: 'Por favor insira o CNPJ!' },
-          { pattern: digitsOnlyPattern, message: 'O CNPJ deve conter apenas dígitos!' }
+          { pattern: somenteDigitosRegex, message: 'O CNPJ deve conter apenas dígitos!' }
         ]}
       >
         <Input />

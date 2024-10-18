@@ -5,10 +5,12 @@ import IhhahTable from "../../components/ihhahTable";
 import { useEffect, useState } from "react";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import clienteService from "../../services/clienteService";
+import { useNavigate } from "react-router-dom";
 
 export default function ClientePage() {
 
 	const [clienteData, setClienteData] = useState<ClienteType[]>([]);
+	const navigate = useNavigate();
 
 	useEffect(() => {		
 		fetchClientes();
@@ -23,9 +25,8 @@ export default function ClientePage() {
 		}
 	};
 	
-	function edit(id: number) {
-		console.log("edit");
-		
+	function edit(id: number) {		
+		navigate(`/cliente/${id}`,)
 	}
 
 	async function remove(id: number) {
@@ -62,7 +63,7 @@ export default function ClientePage() {
 		},
 		{
 			title: 'Plano',
-			dataIndex: 'plano.nome',
+			dataIndex: 'plano.id',
 			key: 'plano',
 			render: (_, cliente) => <Tag>{cliente.plano!.nome}</Tag>,
 		},
