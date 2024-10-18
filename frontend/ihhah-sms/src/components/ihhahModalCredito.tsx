@@ -34,6 +34,7 @@ export default function IhhahModalCredito({ visivel, onClose, clienteId }: Ihhah
 			<Input
 				placeholder="Digite um valor"
 				value={valor}
+				pattern='/^\d+$/;'
 				onChange={(e) => setValor(e.target.value)}
 			/>
 		</Modal>
