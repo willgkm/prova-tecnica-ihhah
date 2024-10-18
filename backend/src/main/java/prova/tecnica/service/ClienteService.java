@@ -1,11 +1,11 @@
 package prova.tecnica.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import prova.tecnica.AdicionarSaldoDTO;
+import prova.tecnica.dto.AdicionarSaldoDTO;
 import prova.tecnica.base.BaseService;
 import prova.tecnica.domain.Cliente;
+import prova.tecnica.dto.AlterarLimiteDTO;
 import prova.tecnica.repository.ClienteRepository;
 
 import java.util.Objects;
@@ -27,5 +27,13 @@ public class ClienteService extends BaseService<Cliente, ClienteRepository> {
         return clienteRepository.save(cliente);
     }
 
+    public Cliente alterarLimite(AlterarLimiteDTO alterarLimiteDTO){
+        Cliente cliente = clienteRepository.findById(alterarLimiteDTO.getClienteId()).get();
+        if(Objects.isNull(cliente.getLimiteConsumo())) {
+            cliente.setLimiteConsumo(0.0);
+        }
+        cliente.setLimiteConsumo(alterarLimiteDTO.getNovoLimite());
+        return clienteRepository.save(cliente);
+    }
 
 }

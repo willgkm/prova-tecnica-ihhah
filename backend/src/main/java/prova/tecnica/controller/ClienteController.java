@@ -4,9 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import prova.tecnica.AdicionarSaldoDTO;
+import prova.tecnica.dto.AdicionarSaldoDTO;
 import prova.tecnica.base.BaseController;
 import prova.tecnica.domain.Cliente;
+import prova.tecnica.dto.AlterarLimiteDTO;
 import prova.tecnica.repository.ClienteRepository;
 import prova.tecnica.service.ClienteService;
 
@@ -23,5 +24,9 @@ public class ClienteController extends BaseController<Cliente, ClienteRepository
         return ResponseEntity.ok(clienteService.adicionarSaldo(adicionarSaldoDTO));
     }
 
+    @PostMapping("/alterar-limite")
+    public ResponseEntity<Cliente> alterarLimite(@RequestBody AlterarLimiteDTO alterarLimiteDTO) {
+        return ResponseEntity.ok(clienteService.alterarLimite(alterarLimiteDTO));
+    }
 
 }

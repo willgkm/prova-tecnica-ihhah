@@ -1,4 +1,4 @@
-package prova.tecnica;
+package prova.tecnica.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;

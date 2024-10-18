@@ -52,4 +52,7 @@ public class Cliente extends BaseEntity {
     @Column(name = "consumo")
     private Double consumo;
 
+    @Column(name = "limite_consumo")
+    private Double limiteConsumo;
+
 }
