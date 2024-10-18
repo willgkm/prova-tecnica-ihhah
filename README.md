@@ -1,7 +1,7 @@
 # ihhah-sms
 
 ## Descrição
-O ihhah-sms é um projeto desenvolvido em Java com Spring Boot e React, destinado a [descrever a funcionalidade principal do projeto, se houver].
+O ihhah-sms é um projeto desenvolvido em Java com Spring Boot e React.
 
 ## Tecnologias
 - Java 23
@@ -21,7 +21,7 @@ Outro ponto que me fez perder tempo foi a seguinte informação nos requisitos: 
 
 Outra coisa que configurei no projeto foi o Liquibase. Para o projeto, foi ótimo em termos de segurança e manutenção do banco, mas me fez gastar um tempo que poderia ter sido utilizado para fazer mais testes.
 
-Em caso de dúvidas, estarei à disposição. Desde já, agradeço pela oportunidade.
+Em caso de dúvidas, estarei à disposição.
 
 
 ## Instalação
