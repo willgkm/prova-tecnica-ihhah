@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.awt.print.Pageable;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Getter
 @Primary
+@Service
 public class BaseService<ENTITY extends BaseEntity,
         REPOSITORY extends JpaRepository<ENTITY, Long>> {
 
