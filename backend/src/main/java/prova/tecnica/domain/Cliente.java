@@ -46,9 +46,10 @@ public class Cliente extends BaseEntity {
     @JoinColumn(name = "plano_id")
     public Plano plano;
 
-    @NotNull(message = "O saldo não pode ser nulo")
     @Column(name = "saldo")
     public Double saldo;
 
+    @Column(name = "consumo")
+    private Double consumo;
 
 }

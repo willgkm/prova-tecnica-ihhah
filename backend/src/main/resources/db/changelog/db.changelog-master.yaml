@@ -85,12 +85,12 @@ databaseChangeLog:
                   name: is_whatsapp
                   type: boolean
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: texto
                   type: text
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: client_type
                   type: varchar(255)
@@ -118,17 +118,17 @@ databaseChangeLog:
                   name: nome
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: custo
                   type: double
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: limite_consumo
                   type: double
                   constraints:
-                    nullable: false
+                    nullable: true
 
   - changeSet:
       id: 5
@@ -181,7 +181,7 @@ databaseChangeLog:
       author: willian.melo
       preConditions:
         - tableExists:
-            tableName: plano
+            tableName: mensagem
             schemaName: public
       changes:
         - dropColumn:
@@ -226,5 +226,28 @@ databaseChangeLog:
               - column:
                   name: limite_consumo
                   value: 100
+  - changeSet:
+      id: 10
+      author: willian.melo
+      preConditions:
+        - tableExists:
+            tableName: plano
+            schemaName: public
+      changes:
+        - dropColumn:
+            tableName: plano
+            columnName: consumo
 
+  - changeSet:
+      id: 10
+      author: willian.melo
+      preConditions:
+        - tableExists:
+            tableName: cliente
+            schemaName: public
+      changes:
+        - addColumn:
+            tableName: cliente
+            columnName: consumo
+            columnType: double
 
