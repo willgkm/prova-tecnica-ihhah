@@ -1,6 +1,7 @@
 package prova.tecnica.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import prova.tecnica.dto.AdicionarSaldoDTO;
 import prova.tecnica.base.BaseService;
@@ -11,6 +12,7 @@ import prova.tecnica.repository.ClienteRepository;
 import java.util.Objects;
 
 @Service
+@Primary
 public class ClienteService extends BaseService<Cliente, ClienteRepository> {
 
     @Autowired
