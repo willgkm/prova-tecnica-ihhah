@@ -19,7 +19,7 @@ export default function IhhahModalLimite({ visivel, onClose,  clienteId }: Ihhah
 
 	return (
 		<Modal
-			title="Meu Modal"
+			title="Alterar limite."
 			visible={visivel}
 			onCancel={() => onClose()}
 			footer={[

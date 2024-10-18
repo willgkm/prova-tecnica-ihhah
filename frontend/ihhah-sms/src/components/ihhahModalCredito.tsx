@@ -19,7 +19,7 @@ export default function IhhahModalCredito({ visivel, onClose, clienteId }: Ihhah
 
 	return (
 		<Modal
-			title="Meu Modal"
+			title="Adicionar credito."
 			visible={visivel}
 			onCancel={() => onClose()}
 			footer={[
