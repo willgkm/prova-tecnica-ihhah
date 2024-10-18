@@ -1,5 +1,5 @@
 import { PlanoType } from "../models/PlanoType";
-import BaseService from "./BaseService";
+import BaseService from "./baseService";
 
 class PlanoService extends BaseService<PlanoType> {
   constructor() {

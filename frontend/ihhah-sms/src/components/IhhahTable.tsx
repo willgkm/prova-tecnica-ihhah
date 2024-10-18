@@ -1,6 +1,6 @@
 import { Row, Col, Button, Table as AntTable, Empty } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface IhhahTableProperties {
     label: string;

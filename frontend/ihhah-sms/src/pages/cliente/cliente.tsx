@@ -3,7 +3,6 @@ import ClienteService from '../../services/clienteService';
 import { ClienteType } from "../../models/ClienteType";
 import IhhahTable from "../../components/ihhahTable";
 import { useEffect, useState } from "react";
-import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import clienteService from "../../services/clienteService";
 import { useNavigate } from "react-router-dom";
 import IhhahModalCredito from "../../components/ihhahModalCredito";

@@ -1,5 +1,5 @@
 import { MensagemType } from "../models/MensagemType";
-import BaseService from "./BaseService";
+import BaseService from "./baseService";
 
 class MensagemService extends BaseService<MensagemType> {
   constructor() {
