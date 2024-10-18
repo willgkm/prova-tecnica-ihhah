@@ -10,5 +10,6 @@ export interface ClienteType {
     nomeEmpresa: string;
     plano?: PlanoType;
     saldo: number;
+    consumo: number; 
   }
   
