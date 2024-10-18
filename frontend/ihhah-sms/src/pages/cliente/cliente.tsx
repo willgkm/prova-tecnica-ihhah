@@ -6,13 +6,17 @@ import { useEffect, useState } from "react";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import clienteService from "../../services/clienteService";
 import { useNavigate } from "react-router-dom";
+import IhhahModalCredito from "../../components/ihhahModalCredito";
 
 export default function ClientePage() {
 
 	const [clienteData, setClienteData] = useState<ClienteType[]>([]);
+	const [modalVisible, setModalVisible] = useState(false);
+	const [clienteId, setClienteId] = useState<number>(0);
+
 	const navigate = useNavigate();
 
-	useEffect(() => {		
+	useEffect(() => {
 		fetchClientes();
 	}, []);
 
@@ -24,27 +28,36 @@ export default function ClientePage() {
 			console.error('Erro ao buscar clientes:', error);
 		}
 	};
-	
-	function edit(id: number) {		
+
+	function edit(id: number) {
 		navigate(`/cliente/${id}`,)
 	}
 
 	async function remove(id: number) {
 		await clienteService.delete(id);
 		await fetchClientes();
-			
 	}
+
+	function handleOpenModal(clienteId: number | undefined) {
+		setClienteId(clienteId!)
+		setModalVisible(true);
+	};
+
+	async function handleCloseModal() {
+		setModalVisible(false);
+		await fetchClientes();
+
+	};
 
 	const columns: TableProps<ClienteType>['columns'] = [
 		{
 			title: 'Nome',
 			dataIndex: 'nome',
 			key: 'nome',
-		},
-		{
-			title: 'Email',
-			dataIndex: 'email',
-			key: 'email',
+			render: (_, cliente) => (
+				<Tooltip title={`Email: ${cliente.email}`}>
+					<span>{cliente.nome}</span>
+				</Tooltip>),
 		},
 		{
 			title: 'Telefone',
@@ -98,13 +111,16 @@ export default function ClientePage() {
 			key: 'action',
 			render: (_, cliente) => (
 				<Space size="middle">
-					<Tooltip title="edit" >
-        		<Button type="primary" shape="circle" icon={<EditOutlined />} onClick={() => edit(cliente.id!)}/>
+					<Tooltip title="Adicionar saldo." >
+						<Button type="primary" shape="circle" icon={<EditOutlined />} onClick={() => handleOpenModal(cliente.id)} />
 					</Tooltip>
-					<Tooltip title="delete" >
-						<Button type="primary" danger shape="circle" icon={<DeleteOutlined/>} onClick={() => remove(cliente.id!)}/>
+					<Tooltip title="Editar cadastro" >
+						<Button type="primary" shape="circle" icon={<EditOutlined />} onClick={() => edit(cliente.id!)} />
 					</Tooltip>
-					
+					<Tooltip title="Excluir cadastro" >
+						<Button type="primary" danger shape="circle" icon={<DeleteOutlined />} onClick={() => remove(cliente.id!)} />
+					</Tooltip>
+
 				</Space>
 			),
 		},
@@ -118,6 +134,10 @@ export default function ClientePage() {
 				columns={columns}
 				formLink="/cliente/novo"
 			/>
+			<IhhahModalCredito
+				visivel={modalVisible}
+				onClose={handleCloseModal}
+				clienteId={clienteId} />
 		</>
 	)
 
