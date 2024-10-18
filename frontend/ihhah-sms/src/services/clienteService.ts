@@ -20,6 +20,19 @@ class ClienteService extends BaseService<ClienteType> {
     }
   }
 
+  async alterarLimite(clienteId: number, novoLimite: number) {
+    try {
+      const response = await api.post(`${this.baseUrl}/alterar-limite`, {
+        clienteId,
+        novoLimite
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Erro ao adicionar saldo:", error);
+      throw error;
+    }
+  }
+
 
 }
 

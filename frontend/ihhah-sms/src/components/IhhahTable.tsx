@@ -33,9 +33,10 @@ export default function  IhhahTable({ label, data, columns, formLink }: IhhahTab
             columns={columns} 
             pagination={{ position: [] }}
             locale={{ emptyText: <Empty description="Sem dados cadastrados"></Empty> }}
+            footer={() => 'Alguns campos possuem tooltip com dados adicionais.'}
             />
         </div>
-      </Row>
+      </Row> 
     </div>
   );
 };

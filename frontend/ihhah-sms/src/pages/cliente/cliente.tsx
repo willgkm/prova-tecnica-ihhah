@@ -3,15 +3,17 @@ import ClienteService from '../../services/clienteService';
 import { ClienteType } from "../../models/ClienteType";
 import IhhahTable from "../../components/ihhahTable";
 import { useEffect, useState } from "react";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import clienteService from "../../services/clienteService";
 import { useNavigate } from "react-router-dom";
 import IhhahModalCredito from "../../components/ihhahModalCredito";
+import IhhahModalLimite from "../../components/ihhahModalLimite";
 
 export default function ClientePage() {
 
 	const [clienteData, setClienteData] = useState<ClienteType[]>([]);
-	const [modalVisible, setModalVisible] = useState(false);
+	const [modalCreditoVisivel, setModalCreditoVisivel] = useState(false);
+	const [modalLimiteVisivel, setModalLimiteVisivel] = useState(false);
 	const [clienteId, setClienteId] = useState<number>(0);
 
 	const navigate = useNavigate();
@@ -38,15 +40,25 @@ export default function ClientePage() {
 		await fetchClientes();
 	}
 
-	function handleOpenModal(clienteId: number | undefined) {
+	function openModalCredito(clienteId: number | undefined) {
 		setClienteId(clienteId!)
-		setModalVisible(true);
+		setModalCreditoVisivel(true);
 	};
 
-	async function handleCloseModal() {
-		setModalVisible(false);
+	async function closeModalCredito() {
+		setModalCreditoVisivel(false);
 		await fetchClientes();
 
+	};
+
+	function openModalLimite(clienteId: number | undefined) {
+		setClienteId(clienteId!)
+		setModalLimiteVisivel(true);
+	};
+
+	async function closeModalLimite() {
+		setModalLimiteVisivel(false);
+		await fetchClientes();
 	};
 
 	const columns: TableProps<ClienteType>['columns'] = [
@@ -102,7 +114,7 @@ export default function ClientePage() {
 						{new Intl.NumberFormat('pt-BR', {
 							style: 'currency',
 							currency: 'BRL',
-						}).format(cliente.plano!.limiteConsumo)}
+						}).format(cliente.limiteConsumo)}
 					</>),
 
 		},
@@ -112,13 +124,24 @@ export default function ClientePage() {
 			render: (_, cliente) => (
 				<Space size="middle">
 					<Tooltip title="Adicionar saldo." >
-						<Button type="primary" shape="circle" icon={<EditOutlined />} onClick={() => handleOpenModal(cliente.id)} />
+						<Button type="primary" size="small"   onClick={() => openModalCredito(cliente.id)} >
+							Saldo
+						</Button>
+					</Tooltip>
+					<Tooltip title="Alterar limite." >
+						<Button type="primary" size="small"   onClick={() => openModalLimite(cliente.id)} >
+							Limite
+						</Button>
 					</Tooltip>
 					<Tooltip title="Editar cadastro" >
-						<Button type="primary" shape="circle" icon={<EditOutlined />} onClick={() => edit(cliente.id!)} />
+						<Button type="primary" size="small"   onClick={() => edit(cliente.id!)} >
+							Plano
+						</Button>
 					</Tooltip>
 					<Tooltip title="Excluir cadastro" >
-						<Button type="primary" danger shape="circle" icon={<DeleteOutlined />} onClick={() => remove(cliente.id!)} />
+						<Button type="primary" size="small" danger   onClick={() => remove(cliente.id!)} >
+							Excluir
+						</Button>
 					</Tooltip>
 
 				</Space>
@@ -135,8 +158,12 @@ export default function ClientePage() {
 				formLink="/cliente/novo"
 			/>
 			<IhhahModalCredito
-				visivel={modalVisible}
-				onClose={handleCloseModal}
+				visivel={modalCreditoVisivel}
+				onClose={closeModalCredito}
+				clienteId={clienteId} />
+			<IhhahModalLimite
+				visivel={modalLimiteVisivel}
+				onClose={closeModalLimite}
 				clienteId={clienteId} />
 		</>
 	)

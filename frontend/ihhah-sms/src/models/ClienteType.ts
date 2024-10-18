@@ -11,5 +11,6 @@ export interface ClienteType {
     plano?: PlanoType;
     saldo: number;
     consumo: number; 
+    limiteConsumo: number; 
   }
   
